@@ -1,0 +1,13 @@
+<div class="chromane_table">
+    <div class="chromane_table-main_row">
+        <div class="chromane_table-main_row-cell" v-for="item in model.main_row_cell_arr" v-text='item.title' v-bind:style="{width : model.table_row_width + '%'}"></div>
+    </div>
+    <div class="chromane_table-row" v-for="row in model.row_arr">
+        <div class="chromane_table-row-cell" v-for="cell in row" v-bind:style="{width : model.table_row_width + '%'}">
+            <div v-if="cell.type ==='text'" v-text="cell.value"></div>
+            <div v-if="cell.type ==='image'">
+                <img v-bind:src="cell.value">
+            </div>
+        </div>
+    </div>
+</div>

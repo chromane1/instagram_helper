@@ -1,0 +1,35 @@
+<div class = "chromane_form" >
+
+	<div class = "chromane_form_item" v-for = "item_model in model.form_item_model_arr" >
+
+		<div class = "chromane_form_item-title" v-text = "item_model.title" ></div>
+
+		<!-- text_input -->
+
+			<input v-if = "item_model.type === 'text_input'" type = "text" class = "chromane_form_item-input" v-model = 'item_model.value' >
+
+		<!-- password -->
+
+			<input v-if = "item_model.type === 'password'" type = "password" class = "chromane_form_item-input" v-model = 'item_model.value' >
+
+		<!-- disable_text_input -->
+
+			<input v-if = "item_model.type === 'disabled_text_input'" type = "text" disabled class = "chromane_form_item-input" v-model = 'item_model.value' >
+
+		<!-- number_input -->
+
+			<input v-if = "item_model.type === 'number_input'" type = "number" class = "chromane_form_item-input" v-model = 'item_model.value' >
+
+		<!-- html_editor -->
+
+			<div v-if = "item_model.type === 'html_editor'" class = "chromane_html_editor" v-bind:data-name='item_model.name' ></div>
+
+		<!-- chromane_select -->
+
+			<div v-if = "item_model.type === 'chromane_select'" is = "chromane_select" v-bind:model = "item_model.chromane_select_model" ></div>
+
+		<div class = "chromane_form_item-error_message" v-if = "item_model.validity === 'invalid'" v-text = "item_model.message" ></div>
+
+	</div>
+
+</div>

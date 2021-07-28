@@ -1,0 +1,40 @@
+
+	<div
+		class = "chromane-select"
+		v-on:click = "handle_event( 'chromane_select_click', { model, event: $event } )"
+		v-bind:class = "{ active: model.active }"
+		>
+
+		<div class = "chromane-select-main" >
+
+			<input
+				type = "text"
+				v-bind:placeholder = "model.placeholder"
+				v-on:input = "handle_event( 'chromane_select_input', { model } )"
+				v-model = "model.value"
+				>
+
+			<svg viewBox = "0 0 24 24" class = "chromane-select-chevron" >
+				<path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z" />
+			</svg>
+
+		</div>
+
+		<div class = "chromane-select-options" >
+
+			<div class = "chromane-select-option chromane-select-option-no-results" v-if = "model.results_available_flag === false" >
+				No results found.
+			</div>
+
+			<div
+				class = "chromane-select-option"
+				v-for = "option in model.option_data_arr"
+				v-text = "option.name"
+				v-on:click = "handle_event( 'chromane_select_option_click', { model, option, event: $event } )"
+				v-if = "option.visible"
+				>
+			</div>
+
+		</div>
+
+	</div>

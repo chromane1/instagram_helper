@@ -1,0 +1,126 @@
+{
+
+	"extension_type": "chromane",
+	"mode": "dev",
+	"scripts": {
+
+		"content_script": [
+			
+			[ "lib", "/common/lib/jquery.min.js" ],
+			[ "lib", "/common/lib/chromane.js" ],
+
+			[ "module", "/common/js/common.js", "common" ],
+			[ "module", "/common/js/cs.js", "cs" ],
+			[ "module", "/common/js/toolbar.js", "toolbar" ],
+
+			[ "module", "/project/scraper.js", "scraper" ],
+			[ "module", "/project/prj_cs.js", "prj_cs" ]
+
+		],
+
+		"background_script": [
+			
+			[ "lib", "/common/lib/jquery.min.js" ],
+			[ "lib", "/common/lib/chromane.js" ],
+
+			[ "module", "/common/js/common.js", "common" ],
+			[ "module", "/common/js/bg.js", "bg" ],
+
+			[ "module", "/project/prj_bg.js", "prj_bg" ]
+
+		],
+
+		"iframe": [
+
+			[ "css_remote", "https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" ],
+			[ "css", "/common/css/iframe.css" ],
+			[ "css", "/common/css/chromane.css" ],
+			[ "css", "/project/css/project.css" ],
+
+			[ "lib", "/common/lib/vue.runtime.min.js" ],
+			[ "lib", "/common/lib/jquery.min.js" ],
+			[ "lib", "/common/lib/moment.min.js" ],
+			[ "lib", "/common/lib/currency.min.js" ],
+			[ "lib", "/common/lib/chromane.js" ],
+			[ "lib", "/common/lib/chromane_loader.js" ],
+
+			[ "lib", "/project/lib/api.js" ],
+			[ "lib", "/project/lib/jsrsasign-all-min.js" ],
+
+			[ "component", "/common/templates/js/chromane_select_render.js", "chromane_select" ],
+			[ "module", "/common/js/chromane_select.js", "chromane_select" ],
+
+			[ "component", "/common/templates/js/chromane_form_render.js", "chromane_form" ],
+			[ "module", "/common/js/chromane_form.js", "chromane_form" ],
+
+			[ "component", "/common/templates/js/chromane_table_render.js", "chromane_table" ],
+			[ "module", "/common/js/chromane_table.js", "chromane_table" ],
+
+			[ "root_template", "/project/templates/js/iframe_render.js", "iframe" ],
+
+			[ "module", "/common/js/common.js", "common" ],
+			[ "module", "/common/js/iframe.js", "iframe" ],
+
+			[ "module", "/project/js/prj_iframe.js", "prj_iframe" ],
+
+			[ "bootstrap", "/core/bootstrap.js" ]
+
+		],
+
+		"ui_tester": [
+
+			[ "css", "/common/css/ui_tester.css" ],
+
+			[ "lib", "/common/lib/jquery.min.js" ],
+			[ "lib", "/common/lib/chromane.js" ],
+
+			[ "module", "/common/js/common.js", "common" ],
+
+			[ "module", "/project/js/prj_ui_tester.js", "prj_ui_tester" ],
+
+			[ "bootstrap", "/core/bootstrap.js" ]
+
+		],
+
+		"unit_tests": [
+
+			[ "meta", {
+
+				"mode": "prod"
+
+			} ],
+
+			[ "lib", "/common/lib/jquery.min.js" ],
+			[ "lib", "/common/lib/chromane.js" ],
+			[ "lib", "/common/lib/json5.min.js" ],
+
+			[ "module", "/common/js/common.js", "common" ],
+			[ "module", "/common/js/exec_tester.js", "exec_tester" ],
+
+			[ "module", "/project/js/scraper.js", "scraper" ],
+			[ "module", "/project/js/prj_unit_tests.js", "prj_unit_tests" ],
+
+			[ "bootstrap", "/core/bootstrap.js" ]
+
+		],
+
+		"website_mock": [
+			
+			[ "lib", "/common/lib/jquery.min.js" ],
+			[ "lib", "/common/lib/chromane.js" ],
+
+			[ "module", "/common/js/common.js", "common" ],
+			[ "module", "/common/js/cs.js", "cs" ],
+			[ "module", "/common/js/toolbar.js", "toolbar" ],
+
+			[ "module", "/project/js/prj_cs.js", "prj_cs" ],
+
+			[ "module", "/project/js/prj_website_mock.js", "prj_website_mock" ],
+
+			[ "bootstrap", "/core/bootstrap.js" ]
+
+		]
+
+	}
+
+}

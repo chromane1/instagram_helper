@@ -1,0 +1,85 @@
+
+	{
+
+		"manifest_version": 2,
+		"name": "Instagram helper",
+		"description": "Save time and money by automating repetitive tasks and extending web apps your business relies on.",
+		"version": "1.0.0",
+
+		"icons": {
+
+			"128": "/project/img/logo.png",
+			"512": "/project/img/logo.png"
+
+		},
+
+		"background": {
+
+			"scripts": [
+
+				"/common/lib/chromane.js",
+				"/common/lib/chromane_loader.js",
+
+				"/common/js/common.js",
+				"/common/js/bg.js",
+
+				"/project/js/prj_bg.js",
+
+				"/core/background_script/main.js"
+
+			],
+			"persistent": false
+
+		},
+
+		"content_scripts": [
+
+			{
+
+				"all_frames": false,
+
+				"run_at": "document_start",
+
+				"matches": [
+					"https://www.instagram.com/*"
+				],
+
+				"js": [
+
+					"/core/ajax_overrides.js",
+
+					"/common/lib/jquery.min.js",
+					"/common/lib/chromane.js",
+					"/common/lib/chromane_loader.js",
+
+					"/common/js/common.js",
+					"/common/js/cs.js",
+					"/common/js/toolbar.js",
+
+					"/project/js/prj_cs.js",
+					"/project/js/scraper.js",
+
+					"/core/content_script/main.js"
+
+				]
+
+			}
+
+		],
+
+		"permissions": [
+
+			"tabs",
+			"storage",
+			"<all_urls>",
+
+			"https://app.spydo.ai/*",
+			"https://spydo.commercehqdev.com/*"
+
+		],
+
+		"web_accessible_resources": [ "/*" ],
+
+		"content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'"
+
+	}
