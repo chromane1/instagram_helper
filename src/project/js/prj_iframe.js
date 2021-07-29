@@ -86,57 +86,68 @@ function prj_iframe(app) {
                 {
                     title: "Text",
                 },
+                {
+                    title: "Details"
+                }
             ];
 
             app.state.model.table_model.row_arr = [];
 
-            // for (let i = 0; i < data.instagram_user_arr.length; i++) {
+            console.log(data.all_users_arr)
+            for (let i = 0; i < data.all_users_arr.length; i++) {
 
-            //     var item = data.instagram_user_arr[i];
+                let item = data.all_users_arr[i];
 
-            //     app.state.model.table_model.row_arr.push([
+                if (data.all_users_arr[i].type === 'Comments') {
 
-            //         {
-            //             type: "image",
-            //             value: item.owner.profile_pic_url,
-            //         },
-            //         {
-            //             type: "text",
-            //             value: item.owner.username,
-            //         },
-            //         {
-            //             type: "text",
-            //             value: item.text,
-            //         },
+                    app.state.model.table_model.row_arr.push([
 
-            //     ])
+                        {
+                            type: "image",
+                            value: item.owner.profile_pic_url,
+                        },
+                        {
+                            type: "text",
+                            value: item.owner.username,
+                        },
+                        {
+                            type: "text",
+                            value: item.text,
+                        },
+                        {
+                            type : "text",
+                            value : "🔥"
+                        }
 
-            //     app.state.model.table_model.table_row_width = 33.3;
+                    ])
+                } else if (data.all_users_arr[i].type === 'Likes') {
 
-            // };
+                    app.state.model.table_model.row_arr.push([
 
-            for (let i = 0; i < data.instagram_likes_arr.length; i++) {
-                var item = data.instagram_likes_arr[i];
+                        {
+                            type: "image",
+                            value: item.profile_pic_url,
+                        },
+                        {
+                            type: "text",
+                            value: item.full_name,
+                        },
+                        {
+                            type: "text",
+                            value: item.username,
+                        },
+                        {
+                            type : "text",
+                            value : '❤️'
+                        }
 
-                app.state.model.table_model.row_arr.push([
+                    ])
+                }
 
-                    {
-                        type: "image",
-                        value: item.profile_pic_url,
-                    },
-                    {
-                        type: "text",
-                        value: item.full_name,
-                    },
-                    {
-                        type: "text",
-                        value: item.username,
-                    },
-
-                ])
-
-                app.state.model.table_model.table_row_width = 33.3;
             }
+
+            app.state.model.table_model.table_row_width = 25;
+
         },
 
         init: async (app, exec) => {

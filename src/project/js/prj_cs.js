@@ -33,15 +33,24 @@ function prj_cs(app) {
 
         },
 
+        get_count : (response,exec) => {
+
+            let comments_count = response.data.shortcode_media.edge_media_to_parent_comment.count;
+
+            return comments_count;
+        },
+
         get_instagram_data_arr: (data, exec) => {
 
             let instagram_data_arr = data.data.shortcode_media.edge_media_to_parent_comment.edges;
 
             let instagram_user_arr = [];
 
-            for (let i = 0; i < instagram_data_arr.length; i++) {
+            for (let i = 0; i < instagram_data_arr.length; i++) {  
 
-                instagram_user_arr.push(instagram_data_arr[i].node)
+                instagram_data_arr[i].node.type = "Comments";
+
+                instagram_user_arr.push(instagram_data_arr[i].node);
             }
 
 
@@ -70,7 +79,6 @@ function prj_cs(app) {
             })
 
             let json = await result.json();
-            console.log(json)
 
             return json
 
@@ -80,9 +88,13 @@ function prj_cs(app) {
 
             let instagram_data_arr = next_response.data.shortcode_media.edge_media_to_parent_comment.edges;
 
+
+
             let instagram_user_arr = [];
 
             for (let i = 0; i < instagram_data_arr.length; i++) {
+
+                instagram_data_arr[i].node.type = "Comments";
 
                 instagram_user_arr.push(instagram_data_arr[i].node)
             }
@@ -99,10 +111,10 @@ function prj_cs(app) {
         },
 
 
-        load_all_comments: async (instagram_arr, shortcode, cursor, exec) => {
+        load_all_comments: async (instagram_arr, shortcode, cursor,count, exec) => {
 
 
-            while (true) {
+            while (instagram_arr.length <= count) {
 
                 let next_response = await exec("prj_cs", "get_next_fetch", shortcode, cursor);
 
@@ -116,17 +128,8 @@ function prj_cs(app) {
 
                 })
 
-                if (!next_cursor || next_instagram_arr.length > 0) {
-
-                    await exec("util", "wait", 3000);
-
+                    await exec("util", "wait", 1000);
                     cursor = next_cursor;
-
-                } else {
-
-                    break
-                }
-
 
             }
 
@@ -157,6 +160,8 @@ function prj_cs(app) {
             let instagram_user_arr = [];
 
             for (let i = 0; i < instagram_data_arr.length; i++) {
+
+                instagram_data_arr[i].node.type = "Likes";
 
                 instagram_user_arr.push(instagram_data_arr[i].node)
             }
@@ -228,13 +233,15 @@ function prj_cs(app) {
 
             let shortcode = exec("prj_cs", "get_shortcode")
 
-            // let response = await exec("prj_cs", "fetch_instagram", shortcode);
+            let response = await exec("prj_cs", "fetch_instagram", shortcode);
 
-            // let instagram_arr = exec("prj_cs", "get_instagram_data_arr", response);
+            let count = exec("prj_cs" , "get_count" , response)
 
-            // let cursor = exec("prj_cs", "get_cursor", response);
+            let instagram_arr = exec("prj_cs", "get_instagram_data_arr", response);
 
-            // await exec("prj_cs", "load_all_comments", instagram_arr, shortcode, cursor);
+            let cursor = exec("prj_cs", "get_cursor", response);
+
+            await exec("prj_cs", "load_all_comments", instagram_arr, shortcode, cursor,count);
 
             let likes_response = await exec("prj_cs", "fetch_likes_instagram", shortcode);
 
@@ -244,11 +251,11 @@ function prj_cs(app) {
 
             await exec("prj_cs", "load_all_likes", likes_arr, shortcode, likes_cursor);
 
-
+            app.state.all_users_arr = instagram_arr.concat(likes_arr);
             exec("common", "post_window_message", app.state.iframe_content_window, "set_instagram_users_arr", {
 
-                // instagram_user_arr: app.state.all_users_arr.concat(instagram_arr),
-                instagram_likes_arr: app.state.all_likes_arr.concat(likes_arr)
+                all_users_arr: app.state.all_users_arr
+                // instagram_likes_arr: app.state.all_likes_arr.concat(likes_arr)
 
             });
 
@@ -259,7 +266,7 @@ function prj_cs(app) {
 
             app.state.all_users_arr = [];
 
-            app.state.all_likes_arr = [];
+            // app.state.all_likes_arr = [];
 
             exec("prj_cs", "init_all_func");
 
