@@ -114,8 +114,7 @@ function prj_cs(app) {
         load_all_comments: async (instagram_arr, shortcode, cursor,count, exec) => {
 
 
-            while (instagram_arr.length <= count) {
-
+            for(let i = 0 ; i <=5 ; i++){
                 let next_response = await exec("prj_cs", "get_next_fetch", shortcode, cursor);
 
                 let next_instagram_arr = exec("prj_cs", "get_next_instagram_data_arr", next_response);
@@ -206,9 +205,9 @@ function prj_cs(app) {
 
         load_all_likes: async (likes_arr, shortcode, likes_cursor, exec) => {
 
-            var next_likes_cursor = likes_cursor;
+            let next_likes_cursor = likes_cursor;
 
-            for ( var i = 0; i < 4; i++ ) {
+            for ( let i = 0; i < 4; i++ ) {
 
 
                 let likes_response = await exec("prj_cs", "next_likes_fetc", shortcode, next_likes_cursor);
